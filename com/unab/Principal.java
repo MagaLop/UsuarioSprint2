@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Principal {
 
-    public static void main(String[] args, Asesoria[] asesorias2) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Contenedor contenedor = new Contenedor();
         int opcion = 0;
@@ -30,20 +30,18 @@ public class Principal {
             System.out.print("Ingrese una opción: ");
              try {
                 opcion = Integer.parseInt(sc.nextLine());
-            } 
-            catch (NumberFormatException e) {
-                // Corrección: mostrar mensaje de error si la opción ingresada no es válida
+            } catch (NumberFormatException e) {
                 System.out.println("La opción ingresada no es válida, por favor inténtelo de nuevo.");
-                continue;
+                return;
             }
             switch (opcion) {
                 case 1:
-                    System.out.print("Ingrese el nombre del Cliente: ");
+                    System.out.print("Ingrese el nombre y apellido del Cliente: ");
                     String nombre = sc.nextLine();
                     if (nombre.length() < 10 || nombre.length() > 50) {
                     // Corrección: mostrar mensaje de error si el nombre es inválido
                     System.out.println("Nombre inválido, por favor vuelve a ingresar tu nombre.");
-                    continue;
+                    return;
                     }
                            
                     System.out.print("Ingrese la fecha de nacimiento del Cliente (DD/MM/AAAA): ");
@@ -58,9 +56,9 @@ public class Principal {
                     if (edad < 0 || edad > 150) {
                         // Corrección: mostrar mensaje de error si la edad es inválida
                         System.out.println("Edad inválida, por favor ingrese una edad válida.");
-                        continue;
+                        return;
                     }
-                    System.out.print("Ingrese el Rut del Cliente: ");
+                    System.out.print("Ingrese el Rut del Cliente (xx.xxx.xxx-x): ");
                     String rut = sc.nextLine();
                     while (!rut.matches("[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9,kK]")) {
                         // Corrección: mostrar mensaje de error si el RUT ingresado no es válido
@@ -80,9 +78,9 @@ public class Principal {
                     String afp = sc.nextLine();
                     if (afp.length() < 4 || afp.length() > 30) {
                     System.out.println("AFP inválida, por favor ingrese una AFP válida.");
-                    continue;
+                    return;
                     }
-                    System.out.print("Ingrese su el Sistema de Salud del Cliente (1-Fonasa / 2- Isapre): ");
+                    System.out.print("Ingrese el Sistema de Salud del Cliente (1-Fonasa / 2- Isapre): ");
                     int sistemaSalud = sc.nextInt();
                     sc.nextLine();
                     if (sistemaSalud == 1) {
@@ -100,7 +98,7 @@ public class Principal {
                     sistemaSalud = sc.nextInt();
                     sc.nextLine();
                     }   
-                    System.out.println("Ingrese la dirección del Cliente");
+                    System.out.println("Ingrese la dirección del Cliente: ");
                     String direccion = sc.nextLine();
                     if (direccion == null) {
                     throw new IllegalArgumentException("La dirección no puede ser nula");
@@ -140,16 +138,16 @@ public class Principal {
                      }
                                 
                     // Verificar si la edad está dentro del rango adecuado
-                    } while(edad < 0 || edad >= 150); //faltaba cerrar llave y paréntesis
-                    contenedor.almacenarCliente(null); //Debe almacenar un objeto Cliente, no null
+                    } while(edad < 0 || edad >= 150); 
+                    contenedor.almacenarCliente(null); 
                     break;           
                  
                 case 2:
-                    System.out.print("Ingrese el nombre del Profesional: ");
+                    System.out.print("Ingrese el nombre y apellido del Profesional: ");
                     String nombre1 = sc.nextLine();
                     if (nombre1.length() < 10 || nombre1.length() > 50) {
                         System.out.println("Nombre inválido, por favor vuelve a ingresar tu nombre.");
-                        return;
+                        continue;
                     }
                     System.out.print("Ingrese la fecha de nacimiento del Profesional (DD/MM/AAAA): ");
                     String nacimiento1 = sc.nextLine();
@@ -161,14 +159,13 @@ public class Principal {
                         System.out.println("Fecha inválida, por favor ingresar una fecha válida.");
                         return;
                     }
-                    System.out.print("Ingrese el Rut del Profesional: ");
+                    System.out.print("Ingrese el Rut del Profesional (xx.xxx.xxx-x): ");
                     String rut2 = sc.nextLine();
-                    if (!rut2.matches("[0-9, kK-]{6,10}")) {
+                    while (!rut2.matches("[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9,kK]")) {
+                        // Corrección: mostrar mensaje de error si el RUT ingresado no es válido
                         System.out.println("El RUT ingresado no es válido. Por favor, ingrese un RUT válido.");
-                        do {
-                            System.out.print("Ingrese el RUT: ");
-                            rut = sc.nextLine();
-                        } while (!rut.matches("[0-9, kK-]{6,10}"));
+                        System.out.print("Ingrese el RUT: ");
+                        rut = sc.nextLine();
                     }
                     System.out.println("Ingrese el título del Profesional: ");
                     String tituloProfesional = sc.nextLine();
@@ -187,7 +184,7 @@ public class Principal {
                     contenedor.almacenarProfesional(new Profesional(nombre1, nacimiento1, rut2, tituloProfesional, fechaIngreso));
                     break;
                 case 3:    
-                    System.out.print("Ingrese el nombre del Administrativo: ");
+                    System.out.print("Ingrese el nombre y apellido del Administrativo: ");
                     String nombre2 = sc.nextLine();
                     if (nombre2.length() < 10 || nombre2.length() > 50) {
                         System.out.println("Nombre inválido, por favor vuelve a ingresar tu nombre.");
@@ -203,14 +200,13 @@ public class Principal {
                         System.out.println("Fecha inválida, por favor ingresar una fecha válida.");
                         return;
                     }
-                    System.out.print("Ingrese el Rut del Administrativo: ");
+                    System.out.print("Ingrese el Rut del Administrativo (xx.xxx.xxx-x): ");
                     String rut3 = sc.nextLine();
-                    if (!rut3.matches("[0-9, kK-]{6,10}")) {
+                    while (!rut3.matches("[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9,kK]")) {
+                        // Corrección: mostrar mensaje de error si el RUT ingresado no es válido
                         System.out.println("El RUT ingresado no es válido. Por favor, ingrese un RUT válido.");
-                        do {
-                            System.out.print("Ingrese el RUT: ");
-                            rut2 = sc.nextLine();
-                        } while (!rut2.matches("[0-9, kK-]{6,10}"));
+                        System.out.print("Ingrese el RUT: ");
+                        rut = sc.nextLine();
                     }
                     System.out.print("Ingrese el área de trabajo del Administrativo: ");
                     String areaTrabajo = sc.nextLine();
@@ -313,7 +309,7 @@ public class Principal {
                     contenedor.listarUsuarios();
                     System.out.println("Lista de Usuarios: ");
                     Asesoria[] asesorias = null;
-                    for (Asesoria asesoria : asesorias2) {
+                    for (Asesoria asesoria : asesorias) {
                         if (asesoria instanceof Usuario) {
                             System.out.println(asesoria.toString());
                         }
@@ -322,8 +318,9 @@ public class Principal {
                 case 7:
                     System.out.print("Ingrese el tipo de usuario a listar (1 para cliente, 2 para profesional, 3 para administrativo): ");
                     Object tipoUsuario = null;
-                    for (Asesoria asesoria : asesorias2) {
-                        if (asesoria instanceof Cliente && tipoUsuario.equals("Cliente")) {
+                    Asesoria[] asesorias1 = null;
+                    for (Asesoria asesoria : asesorias1) {
+                        if (!(asesoria instanceof Cliente) || !tipoUsuario.equals("Cliente")) {
                             System.out.println(((Cliente) asesoria).toString());
                         }
                         if (asesoria instanceof Administrativo && tipoUsuario.equals("Administrativo")) {
@@ -333,8 +330,7 @@ public class Principal {
                             System.out.println(((Profesional) asesoria).toString());
                         }
                     }
-                    break;
-                                            
+                     break;
                 case 8:
                     System.out.println("Lista de capacitaciones: ");
                             Capacitacion[] capacitaciones = null;
@@ -352,6 +348,6 @@ public class Principal {
                     // Corrección: eliminar línea innecesaria
                      
         }    
-    }
-} 
-}         
+          } 
+         }
+        }
