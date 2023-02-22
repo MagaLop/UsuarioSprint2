@@ -9,6 +9,13 @@
             "name": "Launch Principal",
             "request": "launch",
             "mainClass": "com.unab.Principal",
+            "projectName": "UsuarioSprint2_d619aedb"
+        },
+        {
+            "type": "java",
+            "name": "Launch Principal",
+            "request": "launch",
+            "mainClass": "com.unab.Principal",
             "projectName": "UsuarioSprint_a3fde34c"
         },
         {
